@@ -25,6 +25,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -35,6 +36,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jmItemDieta = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jManejoDC = new javax.swing.JMenuItem();
+
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -54,7 +68,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jmiComida.setText("Comida    ");
-        jmiComida.setActionCommand("Comida    ");
         jmiComida.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jmiComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +218,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JMenuItem jManejoDC;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
