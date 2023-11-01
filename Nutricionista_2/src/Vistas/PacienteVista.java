@@ -413,10 +413,8 @@ public class PacienteVista extends javax.swing.JFrame {
                 LocalDate nuevaFecha = fechaRegistro;
 
                 // Llamar al método modificarPaciente para actualizar los datos en la base de datos
-                pacienteData.modificarPaciente(pacienteActual, nuevoPeso, nuevaFecha);
-
-                // Mostrar un mensaje de éxito
-                JOptionPane.showMessageDialog(this, "Paciente modificado con éxito.");
+                pacienteData.modificarPaciente(pacienteActual, nuevoPeso, nuevaFecha);                                
+                limpiarCampos();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar valores válidos en los campos numéricos.");
             }

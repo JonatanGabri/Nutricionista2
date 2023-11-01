@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Data;
 
 import entidades.Comida;
@@ -43,7 +40,7 @@ public class ComidaData {
     }
 
     public void modificarComida(Comida comida) {
-        String sql = "UPDATE comidas SET nombre = ?, detalle = ?, cantCalorias = ? WHERE idComida = ?";
+        String sql = "UPDATE comida SET nombre = ?, detalle = ?, cantCalorias = ? WHERE idComida = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, comida.getNombre());
