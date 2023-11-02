@@ -138,4 +138,29 @@ public List<Comida> listarComidas() {
     return comidas;
 }
 
+   public Comida buscarComidaPorNombre(String nombre) {
+    Comida comida = null;
+    String sql = "SELECT * FROM comida WHERE nombre = ?";
+    
+    try {
+        PreparedStatement ps = conexion.prepareStatement(sql);
+        ps.setString(1, nombre);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            comida = new Comida();
+            comida.setIdComida(rs.getInt("idComida"));
+            comida.setNombre(rs.getString("nombre"));
+            comida.setDetalle(rs.getString("detalle"));
+            comida.setCantCalorias(rs.getInt("cantCalorias"));
+        } else {
+            JOptionPane.showMessageDialog(null, "La comida no fue encontrada.");
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar comida por nombre: " + ex.getMessage());
+    }
+    return comida;
+} 
+    
 }
