@@ -74,6 +74,11 @@ private JDesktopPane escritorio;
         });
 
         jcbAgregar.setText("Agregar");
+        jcbAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcbAgregarMouseClicked(evt);
+            }
+        });
         jcbAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbAgregarActionPerformed(evt);
@@ -192,7 +197,7 @@ private JDesktopPane escritorio;
     private void jcbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAgregarActionPerformed
         ListasDeComidas lc = new ListasDeComidas();
         escritorio.add(lc);
-        escritorio.setVisible(false);
+        escritorio.setVisible(true);
     }//GEN-LAST:event_jcbAgregarActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -214,6 +219,12 @@ private JDesktopPane escritorio;
     private void jBQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBQuitarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBQuitarActionPerformed
+
+    private void jcbAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbAgregarMouseClicked
+         ListasDeComidas lc = new ListasDeComidas();
+        escritorio.add(lc);
+        escritorio.setVisible(true);
+    }//GEN-LAST:event_jcbAgregarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

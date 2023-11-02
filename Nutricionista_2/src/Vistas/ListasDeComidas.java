@@ -22,6 +22,7 @@ private ArrayList<Comida> listaC;
         initComponents();
 //         setLocationRelativeTo(null);
         escritorio= new JDesktopPane();
+this.setContentPane(escritorio);
         cd = new ComidaData();
         listaC = (ArrayList<Comida>) cd.listarComidas();
         cargaComida();
