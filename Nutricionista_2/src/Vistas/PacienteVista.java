@@ -278,31 +278,51 @@ public class PacienteVista extends javax.swing.JFrame {
 
         try {
             String nombre = jtNombre.getText();
-            Integer dni = Integer.parseInt(jtDni.getText());
+            String dniStr = jtDni.getText();
             String domicilio = jtDomicilio.getText();
             String telefono = jtTelefono.getText();
-            if (nombre.isEmpty() || (dni.toString() == "") || domicilio.isEmpty() || telefono.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No puede haber campos vacíos");
-                return; // Sale del método
+            String pesoActualStr = jtPesoActual.getText();
+
+            if (nombre.isEmpty() || dniStr.isEmpty() || domicilio.isEmpty() || telefono.isEmpty() || pesoActualStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No pueden haber campos vacíos");
+                return; // Sal del método si hay campos vacíos
             }
 
-            // Verificar si el DNI ya existe en la base de datos
+            // Convierte el DNI a un número entero
+            int dni = 0;
+            try {
+                dni = Integer.parseInt(dniStr);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "El DNI debe ser un número entero válido");
+                return; // Sal del método si el DNI no es válido
+            }
+
+            // Verifica si la fecha está seleccionada
+            if (jdcFecha.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Debes seleccionar una fecha");
+                return; // Sal del método si la fecha no está seleccionada
+            }
+
+            // Verifica si el DNI ya existe en la base de datos
             Paciente pacienteExistente = pacienteData.buscarPacientePorDni(dni);
             if (pacienteExistente != null) {
                 JOptionPane.showMessageDialog(this, "Ya hay un paciente registrado con el DNI ingresado");
-                return; // Sale del método
+                return; // Sal del método si el DNI ya existe
             }
 
-            // crear un nuevo paciente
+            // Crea un nuevo paciente
             Paciente pacienteNuevo = new Paciente(nombre, dni, domicilio, telefono);
+
+            // Obtén la fecha del JDateChooser
             String fecha = formato.format(jdcFecha.getDate());
-            DateTimeFormatter format = new DateTimeFormatterBuilder().append(DateTimeFormatter.ofPattern("yyyy-MMM-dd")).toFormatter();
+            DateTimeFormatter format = new DateTimeFormatterBuilder().appendPattern("yyyy-MMM-dd").toFormatter();
             LocalDate fecha1 = LocalDate.parse(fecha, format);
 
             // Llama al método darAlta
-            pacienteData.darAlta(pacienteNuevo, Double.parseDouble(jtPesoActual.getText()), fecha1);
+            pacienteData.darAlta(pacienteNuevo, Double.parseDouble(pesoActualStr), fecha1);            
+            limpiarCampos();    
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Debe escribir enteros");
+            JOptionPane.showMessageDialog(this, "Debe ingresar valores válidos en los campos numéricos.");
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -339,7 +359,7 @@ public class PacienteVista extends javax.swing.JFrame {
                 jtNombre.setText(pacienteActual.getNombre());
                 jtDomicilio.setText(pacienteActual.getDomicilio());
                 jtTelefono.setText(pacienteActual.getTelefono());
-                // Obtener peso y  fecha del paciente
+                // Obtener peso y fecha del paciente
                 double pesoActual = pacienteData.obtenerPesoDelPaciente(pacienteActual.getIdPaciente());
                 LocalDate fecha = pacienteData.obtenerFechaDelPaciente(pacienteActual.getIdPaciente());
 
@@ -348,13 +368,12 @@ public class PacienteVista extends javax.swing.JFrame {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
                 String formattedDate = dateFormat.format(Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                 jdcFecha.setDate(dateFormat.parse(formattedDate));
-
-                //jtDni.setText(pacienteActual.getDni()+"");//O podria ponerle String.ValueOf
-                /* convierte el valor del entero (dni) a una cadena (String) 
-        para que sea compatible con el método setText del campo de texto jtDni*/
+            } else {
+                // Mostrar un mensaje si el paciente no fue encontrado
+                JOptionPane.showMessageDialog(this, "No se encontró ningún paciente con el DNI ingresado.");
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "debe ingresar enteros");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número de DNI válido.");
         } catch (ParseException ex) {
             Logger.getLogger(PacienteVista.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -413,7 +432,7 @@ public class PacienteVista extends javax.swing.JFrame {
                 LocalDate nuevaFecha = fechaRegistro;
 
                 // Llamar al método modificarPaciente para actualizar los datos en la base de datos
-                pacienteData.modificarPaciente(pacienteActual, nuevoPeso, nuevaFecha);                                
+                pacienteData.modificarPaciente(pacienteActual, nuevoPeso, nuevaFecha);
                 limpiarCampos();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar valores válidos en los campos numéricos.");
